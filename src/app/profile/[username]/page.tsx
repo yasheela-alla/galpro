@@ -8,14 +8,15 @@ import Link from "next/link";
 import { ArrowLeft, Grid, List, Settings, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Updated type to match Next.js page component props
-type PageProps = {
+// Next.js 15 requires explicit type structure for dynamic routes
+export type PageProps = {
   params: {
     username: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default function ProfilePage({ params }: PageProps) {
+export default function ProfilePage({ params, searchParams }: PageProps) {
   const { username } = params;
 
   // Filter projects by this user
