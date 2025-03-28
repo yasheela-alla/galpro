@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 import { featuredProjects } from "@/data/projects";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -6,16 +6,11 @@ import ProjectCard from "@/components/ProjectCard";
 import Link from "next/link";
 import { ArrowLeft, Grid, List, Settings, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageProps } from 'next-env.d.ts';
 
-// Detailed type definition for page props
-export type ProfilePageProps = {
-  params: {
-    username: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
-export default function ProfilePage({ params }: ProfilePageProps) {
+export default function ProfilePage({ 
+  params 
+}: PageProps<{ username: string }>) {
   const { username } = params;
 
   // Filter projects by this user
@@ -138,10 +133,10 @@ export default function ProfilePage({ params }: ProfilePageProps) {
   );
 }
 
-// Metadata generation with explicit type handling
+// Metadata generation
 export async function generateMetadata({ 
   params 
-}: ProfilePageProps): Promise<Metadata> {
+}: PageProps<{ username: string }>): Promise<Metadata> {
   return {
     title: `${params.username}'s Profile`,
     description: `Profile page for ${params.username}`
