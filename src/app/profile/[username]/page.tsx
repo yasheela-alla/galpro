@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { ResolvingMetadata } from 'next/dist/lib/metadata/types';
 import { featuredProjects } from "@/data/projects";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,14 +8,14 @@ import Link from "next/link";
 import { ArrowLeft, Grid, List, Settings, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Type for dynamic route params
-type Params = {
+// Updated type to match Next.js page component props
+type PageProps = {
   params: {
     username: string;
   };
 };
 
-export default function ProfilePage({ params }: Params) {
+export default function ProfilePage({ params }: PageProps) {
   const { username } = params;
 
   // Filter projects by this user
@@ -137,9 +138,9 @@ export default function ProfilePage({ params }: Params) {
   );
 }
 
-// Metadata generation with explicit typing and async resolution
+// Metadata generation with explicit typing
 export async function generateMetadata(
-  { params }: Params,
+  { params }: PageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   return {
