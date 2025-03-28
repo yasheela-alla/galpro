@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Metadata, ResolvingMetadata } from 'next';
 import { featuredProjects } from "@/data/projects";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
