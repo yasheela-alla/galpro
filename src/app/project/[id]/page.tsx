@@ -6,16 +6,14 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { featuredProjects } from "@/data/projects";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
-// Type for dynamic route params
-type Params = {
-  params: {
-    id: string;
-  };
-};
-
-export default function ProjectPage({ params }: Params) {
+// For Next.js 15, we need to use explicit typing that matches the expected constraints
+export default function ProjectPage({
+  params,
+}: {
+  params: { id: string }
+}) {
   const project = featuredProjects.find((p) => p.id === params.id);
 
   if (!project) {
@@ -34,6 +32,8 @@ export default function ProjectPage({ params }: Params) {
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Content unchanged */}
+            {/* ... */}
             <div className="lg:col-span-2">
               <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-accent/30">
                 <Image
@@ -168,11 +168,12 @@ export default function ProjectPage({ params }: Params) {
   );
 }
 
-// Add metadata generation for better SEO
-export async function generateMetadata(
-  { params }: Params,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+// For generateMetadata with Next.js 15, use the same pattern
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string }
+}): Promise<Metadata> {
   const project = featuredProjects.find(p => p.id === params.id);
   
   if (!project) {
@@ -188,5 +189,5 @@ export async function generateMetadata(
   };
 }
 
-// Explicitly handle dynamic rendering
+// Make dynamic page
 export const dynamic = 'force-dynamic';
