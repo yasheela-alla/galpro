@@ -7,14 +7,15 @@ import Link from "next/link";
 import { ArrowLeft, Grid, List, Settings, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Updated type for page props
-type PageProps = {
+// Detailed type definition for page props
+export type ProfilePageProps = {
   params: {
     username: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export default function ProfilePage({ params }: PageProps) {
+export default function ProfilePage({ params }: ProfilePageProps) {
   const { username } = params;
 
   // Filter projects by this user
@@ -137,11 +138,10 @@ export default function ProfilePage({ params }: PageProps) {
   );
 }
 
-// Metadata generation with correct type annotation
-export async function generateMetadata(
-  { params }: PageProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+// Metadata generation with explicit type handling
+export async function generateMetadata({ 
+  params 
+}: ProfilePageProps): Promise<Metadata> {
   return {
     title: `${params.username}'s Profile`,
     description: `Profile page for ${params.username}`
