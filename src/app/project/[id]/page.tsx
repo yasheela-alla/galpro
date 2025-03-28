@@ -6,14 +6,16 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { featuredProjects } from "@/data/projects";
+import { Metadata, ResolvingMetadata } from "next";
 
-interface ProjectPageProps {
+// Type for dynamic route params
+type Params = {
   params: {
     id: string;
   };
-}
+};
 
-export default function ProjectPage({ params }: ProjectPageProps) {
+export default function ProjectPage({ params }: Params) {
   const project = featuredProjects.find((p) => p.id === params.id);
 
   if (!project) {
@@ -165,3 +167,26 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     </div>
   );
 }
+
+// Add metadata generation for better SEO
+export async function generateMetadata(
+  { params }: Params,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const project = featuredProjects.find(p => p.id === params.id);
+  
+  if (!project) {
+    return {
+      title: 'Project Not Found',
+      description: 'The requested project could not be found'
+    };
+  }
+  
+  return {
+    title: project.title,
+    description: `View details for ${project.title} by ${project.createdBy}`
+  };
+}
+
+// Explicitly handle dynamic rendering
+export const dynamic = 'force-dynamic';
