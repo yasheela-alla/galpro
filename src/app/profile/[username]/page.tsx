@@ -1,29 +1,20 @@
-import { Metadata } from 'next';
-import { ResolvingMetadata } from 'next/dist/lib/metadata/types';
+import Link from "next/link";
 import { featuredProjects } from "@/data/projects";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
-import Link from "next/link";
 import { ArrowLeft, Grid, List, Settings, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Next.js 15 requires explicit type structure for dynamic routes
-export type PageProps = {
-  params: {
-    username: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default function ProfilePage({ params, searchParams }: PageProps) {
+// Keep the page simple to avoid type issues
+export default function ProfilePage({ params }: { params: { username: string } }) {
   const { username } = params;
 
   // Filter projects by this user
   const userProjects = featuredProjects.filter(
     project => project.createdBy === username
   );
-  
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -139,16 +130,10 @@ export default function ProfilePage({ params, searchParams }: PageProps) {
   );
 }
 
-// Metadata generation with explicit typing
-export async function generateMetadata(
-  { params }: PageProps,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+// Simple metadata generation function
+export function generateMetadata({ params }: { params: { username: string } }) {
   return {
     title: `${params.username}'s Profile`,
     description: `Profile page for ${params.username}`
   };
 }
-
-// Explicitly handle dynamic rendering
-export const dynamic = 'force-dynamic';
