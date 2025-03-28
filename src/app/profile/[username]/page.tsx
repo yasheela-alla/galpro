@@ -7,19 +7,21 @@ import Link from "next/link";
 import { ArrowLeft, Grid, List, Settings, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Use Next.js generated type for params
-export default function ProfilePage({ 
-  params 
-}: { 
-  params: { username: string } 
-}) {
+// Type for dynamic route params
+type Params = {
+  params: {
+    username: string;
+  };
+};
+
+export default function ProfilePage({ params }: Params) {
   const { username } = params;
 
   // Filter projects by this user
   const userProjects = featuredProjects.filter(
     project => project.createdBy === username
   );
-
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -135,14 +137,16 @@ export default function ProfilePage({
   );
 }
 
-// Metadata generation
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { username: string } 
-}): Promise<Metadata> {
+// Metadata generation with explicit typing and async resolution
+export async function generateMetadata(
+  { params }: Params,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   return {
     title: `${params.username}'s Profile`,
     description: `Profile page for ${params.username}`
   };
 }
+
+// Explicitly handle dynamic rendering
+export const dynamic = 'force-dynamic';
