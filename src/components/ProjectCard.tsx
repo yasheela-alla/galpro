@@ -23,8 +23,8 @@ export default function ProjectCard({
   remixedFrom,
 }: ProjectCardProps) {
   return (
-    <Link href={`/project/${id}`}>
       <Card className="group overflow-hidden border-border hover:border-primary/50 transition-colors duration-300">
+        <Link href={`/project/${id}`}>
         <div className="aspect-video relative overflow-hidden bg-accent/30">
           <Image
             src={imageUrl}
