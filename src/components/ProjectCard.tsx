@@ -24,31 +24,37 @@ export default function ProjectCard({
   remixedFrom,
 }: ProjectCardProps) {
   return (
-    <Card className="group overflow-hidden border-border hover:border-primary/50 transition-all duration-300 hover:shadow-md">
+    <Card className="group overflow-hidden border border-border hover:border-primary/50 transition-transform duration-300 hover:scale-[1.02] shadow-md rounded-lg">
       <Link href={`/project/${id}`} className="block">
-        <div className="aspect-video relative overflow-hidden bg-accent/30">
+        {/* Image Section */}
+        <div className="aspect-video relative overflow-hidden bg-accent/30 rounded-t-lg">
           <Image
             src={imageUrl}
             alt={title}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-cover group-hover:scale-110 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div className="absolute top-2 right-2 bg-black/40 backdrop-blur-sm rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Heart className="h-4 w-4 text-white" />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          {/* Heart Icon */}
+          <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <Heart className="h-5 w-5 text-white" />
           </div>
         </div>
       </Link>
 
+      {/* Content Section */}
       <CardContent className="p-4">
         <div className="flex flex-col space-y-2">
+          {/* Title */}
           <Link href={`/project/${id}`} className="block">
-            <h3 className="font-cal text-base truncate group-hover:text-primary transition-colors duration-300">{title}</h3>
+            <h3 className="font-semibold text-lg truncate group-hover:text-primary transition-colors duration-300">{title}</h3>
           </Link>
 
-          <div className="flex flex-col text-xs text-muted-foreground">
+          {/* Metadata */}
+          <div className="flex flex-col text-sm text-muted-foreground">
             {remixedFrom && (
-              <span className="truncate text-xs">
+              <span className="truncate">
                 Remixed from:{" "}
                 <Link
                   href={`/project/${remixedFrom.id}`}
