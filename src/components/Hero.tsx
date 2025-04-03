@@ -1,12 +1,12 @@
-// "use client";
+"use client";
 
-// import { useState } from "react";
-// import { Search } from "lucide-react";
-// import { Input } from "@/components/ui/input";
-// import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
-// export default function Hero() {
-//   const [searchTerm, setSearchTerm] = useState("");
+export default function Hero() {
+  const [searchTerm, setSearchTerm] = useState("");
 
 //   return (
 //     <div className="relative py-16 md:py-28 px-4 text-center bg-gradient-to-b from-background via-background/95 to-background/90 overflow-hidden">
@@ -46,4 +46,4 @@
 //       </div>
 //     </div>
 //   );
-// }
+}
